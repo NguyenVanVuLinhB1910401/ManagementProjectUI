@@ -1,0 +1,64 @@
+<div class="outer">
+  <div class="container">
+    <div style="display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; width: 100%; height: 100vh;">
+      <div class="col-12 col-sm-5" id="login">
+        <h3 class="font-weight-bold text-center">ĐĂNG NHẬP</h3>
+        <form [formGroup]="loginForm">
+          <div class="form-group pt-3">
+            <div class="input-field"
+              [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')">
+              <span class="fa fa-user p-2"></span>
+              <input formControlName="username" type="text" placeholder="Tài khoản" />
+            </div>
+          </div>
+          <small *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')"
+            class="text-danger">*Tài khoản là bắt buộc</small>
+          <div class="form-group pt-3">
+            <div class="input-field"
+              [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')">
+              <span class="fa fa-lock p-2"></span>
+              <input formControlName="password" [type]="type" placeholder="Mật khẩu" />
+              <span (click)="hideShowPass()" class="fa {{ eyeIcon }}"></span>
+            </div>
+          </div>
+          <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')"
+            class="text-danger">*Mật khẩu là bắt buộc</small>
+          
+          <button (click)="onLogin()" type="submit" class="btn btn-primary btn-block mt-4 w-100">
+            Đăng nhập
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title" id="exampleModalLabel"> <span style="font-size: 25px;font-weight:700">Forget your
+            password?</span><br>
+          <small>Please provide your E-mail we will send the reset link</small>
+        </p>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group pt-3">
+          <div class="input-field"> <span class="fa fa-user p-2"></span> <input [(ngModel)]="resetPasswordEmail" (ngModelChange)="checkValidEmail($event)" type="text"  placeholder="Email"> </div>
+        </div>
+        <small *ngIf="!resetPasswordEmail" class="text-danger">*Email is required*</small>
+        <small *ngIf="!isValidEmail && resetPasswordEmail" class="text-danger">*Email is invalid*</small>
+      </div>
+      <div class="modal-footer">
+        <button id="closeBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button (click)="confirmToSend()" type="button" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div>

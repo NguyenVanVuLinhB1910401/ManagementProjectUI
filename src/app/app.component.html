@@ -1,0 +1,104 @@
+<div id="page-top" [ngClass]="status ? 'toggled' : ''"  *ngIf="showSidebar; else noSidebar">
+
+
+  <div id="wrapper">
+
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+         
+          <a class="sidebar-brand d-flex align-items-center justify-content-center"routerLink="/">
+              <div class="sidebar-brand-icon rotate-n-15">
+                  <i class="fas fa-laugh-wink"></i>
+              </div>
+              <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+          </a>
+
+         
+          <hr class="sidebar-divider my-0">
+
+         
+          <li class="nav-item active">
+              <a class="nav-link" routerLink="dashboard"              >
+                  <i class="fas fa-fw fa-tachometer-alt"></i>
+                  <span>Trang chủ</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" routerLink="dashboard"              >
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Danh sách dự án</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" routerLink="dashboard"              >
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Danh sách công việc</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="department"              >
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Danh sách phòng ban</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="employee"              >
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Danh sách nhân viên</span></a>
+          </li>
+
+          
+          
+          <hr class="sidebar-divider d-none d-md-block">
+
+        
+
+         
+      </ul>
+     
+      <div id="content-wrapper" class="d-flex flex-column">
+
+   
+          <div id="content">
+
+    
+              <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <div
+                class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
+                <div class="">
+                    <strong>QUẢN LÝ DỰ ÁN ĐẦU TƯ XÂY DỰNG</strong>
+                </div>
+            </div>
+              </nav>
+        
+              <div class="container-fluid">
+                <router-outlet></router-outlet>
+              </div>
+           
+
+          </div>
+
+          <footer class="sticky-footer bg-white">
+              <div class="container my-auto">
+                  <div class="copyright text-center my-auto">
+                      <span>Copyright &copy; Your Website 2023 Nguyen Van Vu Linh</span>
+                  </div>
+              </div>
+          </footer>
+    
+
+      </div>
+ 
+
+  </div>
+
+  <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+  </a>
+
+  
+</div>
+
+<ng-template #noSidebar>
+  <router-outlet></router-outlet>
+</ng-template>
+
+
+<ng-toast ></ng-toast>

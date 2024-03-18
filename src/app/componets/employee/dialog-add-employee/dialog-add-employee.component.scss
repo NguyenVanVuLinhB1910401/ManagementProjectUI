@@ -1,0 +1,224 @@
+// .display-dialog{
+//     flex: 1;
+//     overflow-y: scroll;
+// }
+
+.example-form-field {
+  margin-right: 20px;
+}
+
+td.mat-footer-cell {
+  text-align: center;
+}
+
+.search-nested {
+  width: 80% !important;
+  height: 50px !important;
+  margin-left: 15px !important;
+}
+
+.clear-search-nested {
+  right: 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+// ================================= searchForm
+.hidden{
+  display: none !important;
+}
+::ng-deep .frm_searchbar .searchForm .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: transparent;
+}
+
+::ng-deep .frm_searchbar .searchForm .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: #dddddd;
+}
+
+::ng-deep .frm_searchbar .searchForm .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #eaebeb;
+  border-radius: 5px;
+}
+
+::ng-deep .frm_searchbar .searchForm .searchBtn {
+  margin-top: 0.3em;
+  background-color: #ce7a58;
+  color: #fff;
+  height: 3.2em;
+}
+::ng-deep .frm_searchbar .searchForm .downloadExcel {
+  margin-top: 0.3em;
+  background-color: #16a7eb;
+  color: #fff;
+  height: 3.2em;
+}
+
+::ng-deep .frm_searchbar .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.8em 0;
+}
+
+::ng-deep .frm_searchbar .mat-form-field-label-wrapper {
+  top: -1em;
+}
+
+::ng-deep .frm_searchbar .mat-form-field.mat-focused .mat-form-field-label {
+  color: #ce7a58;
+  font-size: 18px;
+  margin-bottom: 1em;
+}
+
+::ng-deep .frm_searchbar .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  color: #ce7a58;
+  font-size: 18px;
+  margin-bottom: 1em;
+}
+// ================================= table + frm_tbl + tab 1
+::ng-deep .frm_tbl0 {
+  flex: 1;
+  overflow: scroll;
+}
+
+.data-label {
+  word-wrap: break-word;
+}
+
+::ng-deep .frm_tbl0 th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  text-align: center;
+  border: 1px solid #CCC;
+  padding: 0 !important;
+  word-wrap: break-word;
+  color: #495057;
+  // width: auto;
+  // min-width: 50px;
+}
+
+::ng-deep .frm_tbl0 .mat-header-row {
+  background-color: #e8e8e8;
+  word-wrap: break-word;
+  // white-space: none;
+  // white-space: normal;
+}
+
+::ng-deep .frm_tbl0 .mat-header-row .mat-header-cell p {
+  margin-bottom: 0;
+  font-weight: 400;
+  font-style: italic;
+  word-wrap: break-word;
+}
+
+::ng-deep .frm_tbl0 .mat-row:nth-child(even) {
+  background-color: #FAFAFA;
+}
+
+::ng-deep .frm_tbl0 .mat-row:nth-child(odd) {
+  background-color: #fff;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+::ng-deep {
+  .btnDisabled {
+    cursor: not-allowed;
+  }
+  .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    .mat-spinner {
+      margin-right: 0.3em;
+      align-self: center;
+      circle {
+        // stroke: #ce7a58;
+        stroke: white;
+      }
+    }
+  }
+  .iconStatistical{
+    padding-top: 5px;
+  }
+}
+
+::ng-deep .closeBtn {
+  margin-top: 1em;
+  background-color: #ce7a58;
+  color: #fff;
+  height: 3em;
+  padding: 0 3em;
+  margin-left: 20px;
+}
+
+::ng-deep .exportExcelBtn {
+  margin-top: 1em;
+  background-color: #16a7eb;
+  color: #fff;
+  height: 3em;
+  padding: 0 3em;
+}
+
+.dialog_title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  color: #CE7A58;
+}
+
+.body {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.tableSpinnerContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #CE7A58;
+}
+
+::ng-deep .exportExcelBtnContainer{
+  button:disabled,
+  button[disabled]{
+    margin-top: 1em !important;
+    background-color: #16a7eb !important;
+    color: #fff !important;
+    height: 3em !important;
+    padding: 0 3em !important;
+  }
+}
+
+#overload {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(210, 210, 210, 0.33);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  display: none;
+}
+.loading {
+  top: calc(50% - 44px);
+  left: calc(50% - 44px);
+  position: absolute;
+}
+
+.spinner-3 {
+  width: 50px;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #d1681a;
+  --_m: conic-gradient(#0000 10%,#000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: s3 1s infinite linear;
+}
+@keyframes s3 {to{transform: rotate(1turn)}}
+

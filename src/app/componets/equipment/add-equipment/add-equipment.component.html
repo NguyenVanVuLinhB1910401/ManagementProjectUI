@@ -1,0 +1,56 @@
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEquipmentModal">
+    Add Equipment
+</button>
+<div class="modal fade" id="addEquipmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title text-center" id="exampleModalLabel">
+                    <span style="font-size: 25px; font-weight: 700">Add Equipment</span>
+                </p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form [formGroup]="addEquipmentForm">
+                    <div class="form-group pt-3">
+                        <label class="form-label">Equipment Type</label>
+                        <div class="input-field"
+                            [class.error]="addEquipmentForm.controls['equipmentTypeId'].dirty && addEquipmentForm.hasError('required', 'equipmentTypeId')">
+                            <select formControlName="equipmentTypeId" aria-label="Default select example">
+                                <option selected value=''>Open this select equipment type</option>
+                                <option *ngFor="let equipmentType of equipmentTypes" value="{{equipmentType.equipmentTypeId}}">{{equipmentType.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <small
+                        *ngIf="addEquipmentForm.controls['equipmentTypeId'].dirty && addEquipmentForm.hasError('required', 'equipmentTypeId')"
+                        class="text-danger">*Equipment Type is required</small>
+                    <div class="form-group pt-3">
+                        <label class="form-label">Name</label>
+                        <div class="input-field" [class.error]="addEquipmentForm.controls['name'].dirty && addEquipmentForm.hasError('required', 'name')">
+                            <input formControlName="name" type="text" placeholder="Name" />
+                        </div>
+                    </div>
+                    <small
+                    *ngIf="addEquipmentForm.controls['name'].dirty && addEquipmentForm.hasError('required', 'name')"
+                    class="text-danger">*Name is required</small>
+                    <div class="form-group pt-3">
+                        <label class="form-label">Description</label>
+                        <div class="input-field">
+                            <textarea formControlName="description" type="text" placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="closeBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button (click)="addEquipment()" type="button" class="btn btn-primary">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

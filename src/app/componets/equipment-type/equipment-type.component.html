@@ -1,0 +1,120 @@
+
+  <div class="d-flex justify-content-between p-1 mb-2">
+    <h3>List Equipment Type</h3>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEquipmentTypeModal">Add Equipment Type</button>
+  </div>
+
+
+  <table class="table table-success table-striped table-hover custom-table">
+    <thead>
+      <tr>
+        <th class="col-md-4">ID</th>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let equipmentType of equipmentTypes">
+        <td>{{ equipmentType.equipmentTypeId }}</td>
+        <td>{{ equipmentType.name }}</td>
+        <td>
+            <i class="fa fa-pen me-2 text-secondary"  data-bs-toggle="modal" data-bs-target="#editEquipmentTypeModal" (click)="getEquipmentType(equipmentType.equipmentTypeId)"></i>
+            <i class="fa fa-trash text-danger" (click)="deleteEquipmentType(equipmentType.equipmentTypeId)"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Phân trang -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Trước</a></li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">Tiếp</a></li>
+    </ul>
+  </nav>
+
+<div class="modal fade" id="addEquipmentTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title text-center" id="exampleModalLabel">
+                    <span style="font-size: 25px; font-weight: 700">Add Equipment Type</span>
+                </p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form [formGroup]="addEquipmentTypeForm">
+                    <div class="form-group pt-3">
+                        <div class="input-field"
+                            [class.error]="addEquipmentTypeForm.controls['name'].dirty && addEquipmentTypeForm.hasError('required', 'name')">
+                            <input formControlName="name" type="text" placeholder="Name" />
+                        </div>
+                    </div>
+                    <small
+                    *ngIf="addEquipmentTypeForm.controls['name'].dirty && addEquipmentTypeForm.hasError('required', 'name')"
+                    class="text-danger">*Name is required</small>
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="closeBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button (click)="addEquipmentType()" type="button" class="btn btn-primary">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editEquipmentTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <p class="modal-title text-center" id="exampleModalLabel">
+                  <span style="font-size: 25px; font-weight: 700">Edit Equipment Type</span>
+              </p>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+              <form [formGroup]="editEquipmentTypeForm">
+                <div class="form-group pt-3">
+                  <label class="form-label">EquipmentTypeId</label>
+                  <div class="input-field"
+                      [class.error]="editEquipmentTypeForm.controls['equipmentTypeId'].dirty && editEquipmentTypeForm.hasError('required', 'equipmentTypeId')">
+                      <input formControlName="equipmentTypeId" type="text" placeholder="equipmentTypeId" readonly />
+                  </div>
+              </div>
+              <small
+              *ngIf="editEquipmentTypeForm.controls['equipmentTypeId'].dirty && editEquipmentTypeForm.hasError('required', 'equipmentTypeId')"
+              class="text-danger">*EquipmentTypeId is required</small>
+                  <div class="form-group pt-3">
+                    <label class="form-label">Name Equipment Type</label>
+                      <div class="input-field"
+                          [class.error]="editEquipmentTypeForm.controls['name'].dirty && editEquipmentTypeForm.hasError('required', 'name')">
+                          <input formControlName="name" type="text" placeholder="Name" />
+                      </div>
+                  </div>
+                  <small
+                  *ngIf="editEquipmentTypeForm.controls['name'].dirty && editEquipmentTypeForm.hasError('required', 'name')"
+                  class="text-danger">*Name is required</small>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button id="closeBtnEdit" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Close
+              </button>
+              <button (click)="editEquipmentType()" type="button" class="btn btn-primary">
+                  Submit
+              </button>
+          </div>
+      </div>
+  </div>
+</div>
