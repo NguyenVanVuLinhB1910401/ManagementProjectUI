@@ -10,14 +10,7 @@ import { SignupComponent } from './componets/signup/signup.component';
 import { DashboardComponent } from './componets/dashboard/dashboard.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ResetPasswordComponent } from './componets/reset-password/reset-password.component';
-import { ListUserComponent } from './componets/user/list-user/list-user.component';
-import { UpdateUserComponent } from './componets/user/update-user/update-user.component';
-import { ListEquipmentComponent } from './componets/equipment/list-equipment/list-equipment.component';
-import { AddEquipmentComponent } from './componets/equipment/add-equipment/add-equipment.component';
-import { EquipmentTypeComponent } from './componets/equipment-type/equipment-type.component';
-import { HistoryEquipmentComponent } from './componets/history-equipment/history-equipment.component';
 import { DepartmentComponent } from './componets/department/department.component';
-
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule, DatePipe } from '@angular/common';
 import { DialogAddDepartmentComponent } from './componets/department/dialog-add-department/dialog-add-department.component';
@@ -38,6 +31,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProjectComponent } from './componets/project/project.component';
+import { DialogAddProjectComponent } from './componets/project/dialog-add-project/dialog-add-project.component';
+import { DialogEditProjectComponent } from './componets/project/dialog-edit-project/dialog-edit-project.component';
+import { DialogDeleteProjectComponent } from './componets/project/dialog-delete-project/dialog-delete-project.component';
+import { DialogDetailProjectComponent } from './componets/project/dialog-detail-project/dialog-detail-project.component';
 
 
 @NgModule({
@@ -47,12 +45,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SignupComponent,
     DashboardComponent,
     ResetPasswordComponent,
-    ListUserComponent,
-    UpdateUserComponent,
-    ListEquipmentComponent,
-    AddEquipmentComponent,
-    EquipmentTypeComponent,
-    HistoryEquipmentComponent,
     DepartmentComponent,
     DialogAddDepartmentComponent,
     DialogEditDepartmentComponent,
@@ -62,6 +54,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DialogEditEmployeeComponent,
     DialogDeleteEmployeeComponent,
     DialogDetailEmployeeComponent,
+    ProjectComponent,
+    DialogAddProjectComponent,
+    DialogEditProjectComponent,
+    DialogDeleteProjectComponent,
+    DialogDetailProjectComponent,
     
 
   ],
