@@ -43,6 +43,7 @@ export class DialogDeleteEmployeeComponent implements OnInit {
     this.dialogRef.close();
   }
 }
+
 export interface DataDialog {
   id: string;
   name: string;

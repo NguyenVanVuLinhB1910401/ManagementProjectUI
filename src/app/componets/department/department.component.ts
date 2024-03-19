@@ -44,10 +44,10 @@ export class DepartmentComponent implements OnInit {
   }
 
   getAllDepartment(){
+    this.ELEMENT_DATA = [];
     this.departmentService.getAllDepartment().subscribe({
       next: (res: any) => {
         if(res.length > 0){
-          this.ELEMENT_DATA = [];
           res.forEach((element: any, index: number) => {
             const department: Department = {
               no: index,

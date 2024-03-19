@@ -1,1 +1,171 @@
-<p>dialog-edit-project works!</p>
+<div class="m-3 p-2 row " mat-dialog-content>
+    <h3 class="font-weight-bold text-center">Cập nhật thông tin dự án</h3>
+    <form [formGroup]="editProjectForm" >
+      <div class="row">
+        <div class="col-lg-4">
+          <mat-form-field class="example-full-width" appearance="outline" >
+                    <mat-label >Tên dự án</mat-label>
+                    <input formControlName="name" matInput>
+                    <mat-error class="error_Msg" *ngIf="editProjectForm.controls['name'].dirty && editProjectForm.hasError('required', 'name')"
+                    class="text-danger">
+                        <span>Tên dự án là bắt buộc</span>
+                    </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <mat-form-field class="example-full-width" appearance="outline" >
+            <mat-label >Địa chỉ</mat-label>
+            <input formControlName="address" matInput>
+            <mat-error class="error_Msg" *ngIf="editProjectForm.controls['address'].dirty && editProjectForm.hasError('required', 'address')"
+            class="text-danger">
+                <span>Địa chỉ là bắt buộc</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <mat-form-field class="example-full-width" appearance="outline" >
+            <mat-label >Loại công trình</mat-label>
+            <input formControlName="type" matInput>
+            <mat-error class="error_Msg" *ngIf="editProjectForm.controls['type'].dirty && editProjectForm.hasError('required', 'type')"
+            class="text-danger">
+                <span>Loại công trình là bắt buộc</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div> 
+  
+      <div class="row mt-3">
+        <div class="col-lg-4">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label >Ngày bắt đầu</mat-label>
+            <input formControlName="startDate" matInput [matDatepicker]="picker1" placeholder="Ngày bắt đầu" >
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 ></mat-datepicker>
+            <mat-error class="error_Msg" *ngIf="editProjectForm.controls['startDate'].dirty && editProjectForm.hasError('required', 'startDate')"
+            class="text-danger">
+                <span>Ngày bắt đầu là bắt buộc</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label >Ngày kết thúc dự kiến</mat-label>
+            <input formControlName="endDate" matInput [matDatepicker]="picker2" placeholder="Ngày kết thúc" >
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 ></mat-datepicker>
+            <mat-error class="error_Msg" *ngIf="editProjectForm.controls['endDate'].dirty && editProjectForm.hasError('required', 'endDate')"
+            class="text-danger">
+                <span>Ngày kết thúc dự kiến là bắt buộc</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label >Ngày hoàn thành</mat-label>
+            <input formControlName="completeDate" matInput [matDatepicker]="picker3" placeholder="Ngày hoàn thành" >
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3 ></mat-datepicker>
+            <mat-error class="error_Msg" *ngIf="editProjectForm.controls['completeDate'].dirty && editProjectForm.hasError('required', 'completeDate')"
+            class="text-danger">
+                <span>Ngày hoàn thành là bắt buộc</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  
+    <div class="d-sm-flex align-items-center justify-content-between mb-2">
+      <h1 class="mb-0">Form thêm thành viên tham gia dự án</h1>
+      <button class="btn btn-primary" (click)="onSubmitAddMember()" type="submit" [disabled]="!addMemberForm.valid">Thêm thành viên</button>
+    </div>
+
+      <form [formGroup]="addMemberForm" >
+        <div class="row">
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width" appearance="outline" >
+              <mat-label>Phòng ban</mat-label>
+              <mat-select formControlName="departmentId" (ngModelChange)="getAllEmployeeByDepartment($event)">
+                  <mat-option value="">Tất cả phòng ban</mat-option>
+                  <mat-option *ngFor="let department of listDepartment" [value]="department.id">{{department.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width" appearance="outline" >
+              <mat-label>Thành viên</mat-label>
+              <mat-select formControlName="memberIds" multiple>
+                  <mat-option *ngFor="let employee of listEmployeeByDepartment" [value]="employee.id">{{employee.firstName + " " + employee.lastName}}</mat-option>
+              </mat-select>
+              <mat-error class="error_Msg" *ngIf="addMemberForm.controls['memberIds'].dirty && addMemberForm.hasError('required', 'memberIds')"
+              class="text-danger">
+                  <span>Danh sách thành viên là bắt buộc</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width" appearance="outline" >
+              <mat-label >Vị trí trong dự án</mat-label>
+              <input formControlName="position" matInput>
+              <mat-error class="error_Msg" *ngIf="addMemberForm.controls['position'].dirty && addMemberForm.hasError('required', 'position')"
+              class="text-danger">
+                  <span>Vị trí đảm nhiệm là bắt buộc</span>
+              </mat-error>
+            </mat-form-field>
+            
+          </div>
+          
+        </div> 
+      </form>
+
+      <div class="d-sm-flex align-items-center justify-content-between mb-2">
+        <h1 class="mb-0 ">Danh sách thành viên tham gia dự án</h1>
+        <button class="btn btn-danger" (click)="deleteAllMember()">Xóa tất cả thành viên</button>
+      </div>
+
+      <div class="row">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="no" style="width: 5%;">
+              <th mat-header-cell *matHeaderCellDef >STT</th>
+              <td mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fullName" style="width: 25%;">
+              <th mat-header-cell *matHeaderCellDef >Họ tên</th>
+              <td mat-cell *matCellDef="let row;"> {{row.fullName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="position" style="width: 50%;">
+              <th mat-header-cell *matHeaderCellDef >Vị trí</th>
+              <td mat-cell *matCellDef="let row; let i = index;">
+                  <input (change)="changePosition($event, i)"  class="example-full-width" matInput value="{{row.position}}" style="height: 50px;" >
+              </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action" style="width: 20%;">
+              <th mat-header-cell *matHeaderCellDef >Hành động</th>
+              <td mat-cell *matCellDef="let row; let i = index"> 
+                <mat-icon (click)="deleteMember(i)" style="color: red;">delete</mat-icon>
+              </td>
+          </ng-container>
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      </div>
+
+
+
+  
+      <div class="d-flex justify-content-end mt-3">
+        <button (click)="onClose()" class="btn btn-danger me-3">Đóng</button>
+        <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!editProjectForm.valid">
+          Lưu thông tin
+        </button>
+      </div>
+      
+
+  </div>
+  
+  
+  
+  

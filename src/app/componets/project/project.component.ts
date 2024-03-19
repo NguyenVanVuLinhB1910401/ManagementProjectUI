@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgToastService } from 'ng-angular-popup';
 import { ProjectService } from 'src/app/services/project.service';
 import { DialogAddProjectComponent } from './dialog-add-project/dialog-add-project.component';
+import { DialogEditProjectComponent } from './dialog-edit-project/dialog-edit-project.component';
+import { DialogDeleteProjectComponent } from './dialog-delete-project/dialog-delete-project.component';
 
 @Component({
   selector: 'app-project',
@@ -11,7 +13,7 @@ import { DialogAddProjectComponent } from './dialog-add-project/dialog-add-proje
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent {
-  displayedColumns: string[] = ['no', 'name', 'address', 'startDate', 'endDate', 'completeDate', 'status'];
+  displayedColumns: string[] = ['no', 'name', 'address', 'startDate', 'endDate', 'completeDate', 'status', 'action'];
   dataSource: MatTableDataSource<Project>;
   ELEMENT_DATA: Project[] = [];
   constructor(
@@ -35,10 +37,10 @@ export class ProjectComponent {
   }
 
   getAllProject(){
+    this.ELEMENT_DATA = [];
     this.projectService.getAllProject().subscribe({
       next: (res: any) => {
         if(res?.length > 0){
-          this.ELEMENT_DATA = [];
           res.forEach((element: any, index: number) => {
             const project: Project = {
               no: index,
@@ -64,25 +66,26 @@ export class ProjectComponent {
   }
  
   openDialogEdit(id: string) {
-    // const dialogRef = this.dialog.open(DialogEditEmployeeComponent, {
-    //   data: {id: id}
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   // console.log(`Dialog result: ${result}`);
-    //   this.getAllEmployee();
-    // });
+    const dialogRef = this.dialog.open(DialogEditProjectComponent, {
+      width: "90%",
+      data: {id: id}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(`Dialog result: ${result}`);
+      this.getAllProject();
+    });
   }
 
   openDialogDelete(id: string, name: string) {
-    // const dialogRef = this.dialog.open(DialogDeleteEmployeeComponent, {
-    //   width: "30%",
-    //   autoFocus: false,
-    //   data: {id: id, name: name}
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   // console.log(`Dialog result: ${result}`);
-    //   this.getAllEmployee();
-    // });
+    const dialogRef = this.dialog.open(DialogDeleteProjectComponent, {
+      width: "30%",
+      autoFocus: false,
+      data: {id: id, name: name}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(`Dialog result: ${result}`);
+      this.getAllProject();
+    });
   }
 }
 

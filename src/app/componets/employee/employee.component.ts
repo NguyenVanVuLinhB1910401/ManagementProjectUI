@@ -37,10 +37,10 @@ export class EmployeeComponent implements OnInit {
   }
 
   getAllEmployee(){
+    this.ELEMENT_DATA = [];
     this.employeeService.getAllEmployee().subscribe({
       next: (res: any) => {
         if(res?.length > 0){
-          this.ELEMENT_DATA = [];
           res.forEach((element: any, index: number) => {
             const employee: Employee = {
               no: index,
