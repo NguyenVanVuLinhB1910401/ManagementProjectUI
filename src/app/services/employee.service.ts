@@ -20,6 +20,10 @@ export class EmployeeService {
     return this.http.get<any>(`${this.baseUrl}${id}`);
   }
 
+  getEmployeeByDepartment(departmentId: string){
+    return this.http.get<any>(`${this.baseUrl}department/${departmentId}`);
+  }
+
   addEmployee(data: any){
     return this.http.post<any>(`${this.baseUrl}`, data);
   }

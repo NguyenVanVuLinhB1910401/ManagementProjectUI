@@ -83,6 +83,6 @@ export class DialogAddEmployeeComponent implements OnInit {
   }
   onClose() {
     this.dialogRef.close();
-}
+  }
 
 }

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgToastService } from 'ng-angular-popup';
 import { ProjectService } from 'src/app/services/project.service';
+import { DialogAddProjectComponent } from './dialog-add-project/dialog-add-project.component';
 
 @Component({
   selector: 'app-project',
@@ -24,13 +25,13 @@ export class ProjectComponent {
     this.getAllProject();
   }
   openDialog() {
-    // const dialogRef = this.dialog.open(DialogAddEmployeeComponent, {
-     
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   // console.log(`Dialog result: ${result}`);
-    //   this.getAllEmployee();
-    // });
+    const dialogRef = this.dialog.open(DialogAddProjectComponent, {
+      width: "90%",
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(`Dialog result: ${result}`);
+      this.getAllProject();
+    });
   }
 
   getAllProject(){

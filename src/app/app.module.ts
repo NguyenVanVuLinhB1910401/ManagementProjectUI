@@ -36,7 +36,7 @@ import { DialogAddProjectComponent } from './componets/project/dialog-add-projec
 import { DialogEditProjectComponent } from './componets/project/dialog-edit-project/dialog-edit-project.component';
 import { DialogDeleteProjectComponent } from './componets/project/dialog-delete-project/dialog-delete-project.component';
 import { DialogDetailProjectComponent } from './componets/project/dialog-detail-project/dialog-detail-project.component';
-
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -79,7 +79,8 @@ import { DialogDetailProjectComponent } from './componets/project/dialog-detail-
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   providers: [
     {
