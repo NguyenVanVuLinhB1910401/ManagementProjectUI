@@ -1,0 +1,134 @@
+<div class="font-weight-bold text-center d-sm-flex justify-content-between align-items-center" >
+    <h1 class="h1 mb-0">Thông Tin Chi Tiết Về Dự Án</h1>
+    <div>
+        <button (click)="openDialogChuyenBuocTiepTheo(project?.id, project?.name, project?.buocHienTai?.buocTruocDo)" *ngIf="project?.buocHienTai?.buocTruocDo !== '0' && this.userId === project?.buocHienTai?.nguoiThucHienId" class="btn btn-primary ml-2">Chuyển về bước trước đó</button>
+        <button (click)="openDialogChuyenBuocTiepTheo(project?.id, project?.name, project?.buocHienTai?.buocTiepTheo)" *ngIf="project?.buocHienTai?.buocTiepTheo !== '0' && this.userId === project?.buocHienTai?.nguoiThucHienId" class="btn btn-primary ml-2">Chuyển đến bước tiếp theo</button>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-md-8">
+        <h2 ><strong>Tên dự án:</strong> {{project?.name}}</h2>
+    </div>
+    <div class="col-md-4">
+        <h2 ><strong>Loại công trình:</strong> {{project?.type}}</h2>
+    </div>
+</div>
+<div class="row">
+    <h2 ><strong>Địa chỉ:</strong> {{project?.address}}</h2>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-4">
+        <h2><strong>Ngày bắt đầu thực hiện:</strong> {{project?.startDate | date:'dd-MM-yyyy'}}</h2>
+    </div>
+    <div class="col-lg-4 col-md-4">
+        <h2><strong>Người hoàn thành dự kiến:</strong> {{project?.endDate | date:'dd-MM-yyyy'}}</h2>
+    </div>
+    <div class="col-lg-4 col-md-4">
+        <h2><strong>Ngày hoàn thành chính thức:</strong> {{project?.completeDate | date:'dd-MM-yyyy'}}</h2>
+    </div>
+    <div class="col-lg-4 col-md-4">
+        <h2><strong>Tiến độ: </strong> {{project?.buocHienTai?.tenBuoc }} <span> (Xem quy trình)</span></h2>
+    </div>
+    <div class="col-lg-4 col-md-4">
+        <h2><strong>Trạng thái: </strong> {{project?.statusName }}</h2>
+    </div>
+    
+</div>
+<div class="row">
+    <h2 class="mb-0"><strong>Thành viên tham gia</strong></h2>
+</div>
+<div class="table-container">
+    <table mat-table [dataSource]="dataSourceInfoMember" class="custom-table" id="table-info-member">
+      <ng-container matColumnDef="no" >
+          <th mat-header-cell *matHeaderCellDef class="custom-column" >STT</th>
+          <td mat-cell *matCellDef="let row; let i = index" class="custom-column"> {{i + 1}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fullName" >
+          <th mat-header-cell *matHeaderCellDef class="custom-column">Họ tên</th>
+          <td mat-cell *matCellDef="let row;" class="custom-column"> {{row.fullName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="position" >
+          <th mat-header-cell *matHeaderCellDef class="custom-column">Vị trí trong dự án</th>
+          <td mat-cell *matCellDef="let row; let i = index;" class="custom-column"> {{row.position}} </td>
+      </ng-container>
+      <ng-container matColumnDef="department" >
+        <th mat-header-cell *matHeaderCellDef class="custom-column">Phòng ban</th>
+        <td mat-cell *matCellDef="let row; let i = index;" class="custom-column"> {{row.department}} </td>
+      </ng-container>
+      <ng-container matColumnDef="departmentPosition" >
+        <th mat-header-cell *matHeaderCellDef class="custom-column">Vị trí trong phòng ban</th>
+        <td mat-cell *matCellDef="let row; let i = index;" class="custom-column"> {{row.departmentPosition}} </td>
+      </ng-container>  
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsInfoMember; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsInfoMember;"></tr>
+  </table>
+</div>
+
+<div class="row mt-2">
+    <h2 class="mb-0"><strong>Lịch sử thực hiện dự án</strong></h2>
+</div>
+<div class="table-container">
+    <table mat-table [dataSource]="dataSourceLichSuCongViec" class="custom-table" id="table-lich-su-cong-viec">
+        <ng-container matColumnDef="no" >
+            <th mat-header-cell *matHeaderCellDef class="custom-column">STT</th>
+            <td mat-cell *matCellDef="let row; let i = index" class="custom-column"> {{i + 1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="title" >
+            <th mat-header-cell *matHeaderCellDef class="custom-column">Tên công việc</th>
+            <td mat-cell *matCellDef="let row;" class="custom-column"> {{row.title}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tenNguoiGiao">
+            <th mat-header-cell *matHeaderCellDef class="custom-column">Người giao</th>
+            <td mat-cell *matCellDef="let row;" class="custom-column"> {{row?.tenNguoiGiao}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tenNguoiThucHien" >
+            <th mat-header-cell *matHeaderCellDef class="custom-column">Người thực hiện</th>
+            <td mat-cell *matCellDef="let row;" class="custom-column"> {{row?.tenNguoiThucHien}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="startDate" >
+            <th mat-header-cell *matHeaderCellDef class="custom-column">Ngày bắt đầu</th>
+            <td mat-cell *matCellDef="let row;" class="custom-column"> {{row.startDate | date:'dd-MM-yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate" >
+            <th mat-header-cell *matHeaderCellDef class="custom-column">Ngày kết thúc</th>
+            <td mat-cell *matCellDef="let row;" class="custom-column"> {{row.endDate | date:'dd-MM-yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="completeDate" >
+            <th mat-header-cell *matHeaderCellDef class="custom-column">Ngày hoàn thành</th>
+            <td mat-cell *matCellDef="let row;" class="custom-column"> {{row.completeDate | date:'dd-MM-yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status" >
+            <th mat-header-cell *matHeaderCellDef class="custom-column">Trạng thái</th>
+            <td mat-cell *matCellDef="let row;" class="custom-column"> {{row.statusName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="progress" >
+            <th mat-header-cell *matHeaderCellDef class="custom-column">Tiến độ</th>
+            <td mat-cell *matCellDef="let row;" class="custom-column"> {{row.progress}}% </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action" >
+            <th mat-header-cell *matHeaderCellDef class="custom-column">Hành động</th>
+            <td mat-cell *matCellDef="let row;" class="custom-column"> 
+                <div>
+                    <mat-icon (click)="openDialogDetail(row.id)">remove_red_eye</mat-icon>
+                    
+                </div>
+            </td>
+        </ng-container>
+
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsLichSuCongViec; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsLichSuCongViec;" [class.cong-viec-chuyen-buoc]="row.isChuyenBuoc === 1"></tr>
+        
+    </table>
+    
+</div>

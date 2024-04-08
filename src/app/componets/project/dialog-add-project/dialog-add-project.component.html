@@ -1,12 +1,12 @@
-<div class="m-3 p-2 row " mat-dialog-content>
-    <h3 class="font-weight-bold text-center">Khởi tạo dự án</h3>
-    <form [formGroup]="addProjectForm" >
+<div mat-dialog-title class="font-weight-bold text-center" >Khởi tạo dự án</div>
+<div class="row p-0" mat-dialog-content >
+    <form class="mt-2" [formGroup]="addProjectForm" >
       <div class="row">
         <div class="col-lg-4">
           <mat-form-field class="example-full-width" appearance="outline" >
                     <mat-label >Tên dự án</mat-label>
                     <input formControlName="name" matInput>
-                    <mat-error class="error_Msg" *ngIf="addProjectForm.controls['name'].dirty && addProjectForm.hasError('required', 'name')"
+                    <mat-error class="error_Msg" *ngIf="addProjectForm.hasError('required', 'name')"
                     class="text-danger">
                         <span>Tên dự án là bắt buộc</span>
                     </mat-error>
@@ -16,17 +16,33 @@
           <mat-form-field class="example-full-width" appearance="outline" >
             <mat-label >Địa chỉ</mat-label>
             <input formControlName="address" matInput>
-            <mat-error class="error_Msg" *ngIf="addProjectForm.controls['address'].dirty && addProjectForm.hasError('required', 'address')"
+            <mat-error class="error_Msg" *ngIf="addProjectForm.hasError('required', 'address')"
             class="text-danger">
                 <span>Địa chỉ là bắt buộc</span>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col-lg-4">
-          <mat-form-field class="example-full-width" appearance="outline" >
+          <!-- <mat-form-field class="example-full-width" appearance="outline" >
             <mat-label >Loại công trình</mat-label>
             <input formControlName="type" matInput>
-            <mat-error class="error_Msg" *ngIf="addProjectForm.controls['type'].dirty && addProjectForm.hasError('required', 'type')"
+            <mat-error class="error_Msg" *ngIf="addProjectForm.hasError('required', 'type')"
+            class="text-danger">
+                <span>Loại công trình là bắt buộc</span>
+            </mat-error>
+          </mat-form-field> -->
+          <mat-form-field class="example-full-width" appearance="outline" >
+            <mat-label>Loại công trình</mat-label>
+            <mat-select formControlName="type">
+                <mat-option value="">Chọn loại công trình</mat-option>
+                <mat-option value="Công trình dân dụng">Công trình dân dụng</mat-option>
+                <mat-option value="Công trình công nghiệp">Công trình công nghiệp</mat-option>
+                <mat-option value="Công trình hạ tầng kỹ thuật">Công trình hạ tầng kỹ thuật</mat-option>
+                <mat-option value="Công trình giao thông">Công trình giao thông</mat-option>
+                <mat-option value="Công trình nông nghiệp và phát triển nông thôn">Công trình nông nghiệp và phát triển nông thôn</mat-option>
+                <mat-option value="Công trình quốc phòng, an ninh">Công trình quốc phòng, an ninh</mat-option>
+            </mat-select>
+            <mat-error class="error_Msg" *ngIf="addProjectForm.hasError('required', 'type')"
             class="text-danger">
                 <span>Loại công trình là bắt buộc</span>
             </mat-error>
@@ -41,7 +57,7 @@
             <input formControlName="startDate" matInput [matDatepicker]="picker1" placeholder="Ngày bắt đầu" >
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1 ></mat-datepicker>
-            <mat-error class="error_Msg" *ngIf="addProjectForm.controls['startDate'].dirty && addProjectForm.hasError('required', 'startDate')"
+            <mat-error class="error_Msg" *ngIf="addProjectForm.hasError('required', 'startDate')"
             class="text-danger">
                 <span>Ngày bắt đầu là bắt buộc</span>
             </mat-error>
@@ -53,10 +69,22 @@
             <input formControlName="endDate" matInput [matDatepicker]="picker2" placeholder="Ngày kết thúc" >
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2 ></mat-datepicker>
-            <mat-error class="error_Msg" *ngIf="addProjectForm.controls['endDate'].dirty && addProjectForm.hasError('required', 'endDate')"
+            <mat-error class="error_Msg" *ngIf="addProjectForm.hasError('required', 'endDate')"
             class="text-danger">
                 <span>Ngày kết thúc là bắt buộc</span>
             </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label >Chọn quy trình thực hiện</mat-label>
+            <mat-select formControlName="quyTrinhId">
+              <mat-option *ngFor="let quyTrinh of listQuyTrinh" [value]="quyTrinh?.id">{{quyTrinh?.tenQuyTrinh}}</mat-option>
+          </mat-select>
+          <mat-error class="error_Msg" *ngIf="addMemberForm.hasError('required', 'quyTrinhId')"
+          class="text-danger">
+              <span>Quy trình thực hiện là bắt buộc</span>
+          </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -92,13 +120,25 @@
           </div>
           <div class="col-lg-4">
             <mat-form-field class="example-full-width" appearance="outline" >
+              <mat-label>Vị trí trong dự án</mat-label>
+              <mat-select formControlName="position">
+                  <mat-option value="">Chọn vị trí</mat-option>
+                  <mat-option value="Trưởng nhóm thiết kế">Trưởng nhóm thiết kế</mat-option>
+                  <mat-option value="Thành viên thiết kế">Thành viên thiết kế</mat-option>
+                  <mat-option value="Trưởng nhóm khảo sát">Trưởng nhóm khảo sát</mat-option>
+                  <mat-option value="Thành viên khảo sát">Thành viên khảo sát</mat-option>
+                  <mat-option value="Trưởng nhóm giám sát">Trưởng nhóm giám sát</mat-option>
+                  <mat-option value="Thành viên giám sát">Thành viên giám sát</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <mat-form-field class="example-full-width" appearance="outline" >
               <mat-label >Vị trí trong dự án</mat-label>
               <input formControlName="position" matInput>
               <mat-error class="error_Msg" *ngIf="addMemberForm.controls['position'].dirty && addMemberForm.hasError('required', 'position')"
               class="text-danger">
                   <span>Vị trí đảm nhiệm là bắt buộc</span>
               </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
             
           </div>
           
@@ -110,7 +150,7 @@
         <button class="btn btn-danger" (click)="deleteAllMember()">Xóa tất cả thành viên</button>
       </div>
 
-      <div class="row">
+      <div class="d-sm-flex align-items-center justify-content-between">
         <table mat-table [dataSource]="dataSource">
           <ng-container matColumnDef="no" style="width: 5%;">
               <th mat-header-cell *matHeaderCellDef >STT</th>
@@ -125,7 +165,18 @@
           <ng-container matColumnDef="position" style="width: 50%;">
               <th mat-header-cell *matHeaderCellDef >Vị trí</th>
               <td mat-cell *matCellDef="let row; let i = index;">
-                  <input (change)="changePosition($event, i)"  class="example-full-width" matInput value="{{row.position}}" style="height: 50px;" >
+                <!-- <mat-form-field class="example-full-width" appearance="outline" > -->
+                  <mat-select (selectionChange)="changePosition($event, i)" [(ngModel)]="row.position">
+                      <mat-option value="">Chọn vị trí</mat-option>
+                      <mat-option value="Trưởng nhóm thiết kế">Trưởng nhóm thiết kế</mat-option>
+                      <mat-option value="Thành viên thiết kế">Thành viên thiết kế</mat-option>
+                      <mat-option value="Trưởng nhóm khảo sát">Trưởng nhóm khảo sát</mat-option>
+                      <mat-option value="Thành viên khảo sát">Thành viên khảo sát</mat-option>
+                      <mat-option value="Trưởng nhóm giám sát">Trưởng nhóm giám sát</mat-option>
+                      <mat-option value="Thành viên giám sát">Thành viên giám sát</mat-option>
+                  </mat-select>
+                <!-- </mat-form-field> -->
+                  <!-- <input (change)="changePosition($event, i)"  class="example-full-width" matInput value="{{row.position}}" style="height: 50px;" > -->
               </td>
           </ng-container>
 
@@ -138,22 +189,17 @@
           
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+        </table>
       </div>
-
-
-
-  
-      <div class="d-flex justify-content-end mt-3">
-        <button (click)="onClose()" class="btn btn-danger me-3">Đóng</button>
-        <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!addProjectForm.valid">
-          Tạo dự án
-        </button>
-      </div>
-      
 
   </div>
   
+  <div class="d-flex justify-content-end mr-1" mat-dialog-actions >
+    <button (click)="onClose()" class="btn btn-danger me-3">Đóng</button>
+    <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!addProjectForm.valid">
+      Tạo dự án
+    </button>
+  </div>
   
   
   

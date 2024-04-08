@@ -1,33 +1,28 @@
-
- <div class="m-3 p-2 row display-dialog">
-  <h3 class="font-weight-bold text-center">Thêm nhân viên</h3>
-  <form [formGroup]="addEmployeeForm" mat-dialog-content>
+<div mat-dialog-title class="font-weight-bold text-center">Thêm thông tin nhân viên mới</div>
+ <div class="row p-0"  mat-dialog-content>
+  <form class="mt-2" [formGroup]="addEmployeeForm">
     <div class="row">
       <div class="col-md-6">
-          <div>
-              <label>Họ tên đệm</label>
-            </div>
-          <div class="input-field"
-                [class.error]="addEmployeeForm.controls['firstName'].dirty && addEmployeeForm.hasError('required', 'firstName')">
-                <input formControlName="firstName" type="text" placeholder="Nguyễn Văn Vũ" />
-          </div>
-          <small *ngIf="addEmployeeForm.controls['firstName'].dirty && addEmployeeForm.hasError('required', 'firstName')"
-              class="text-danger">*Họ tên đệm là bắt buộc</small>
+        <mat-form-field class="example-full-width" appearance="outline" >
+          <mat-label >Họ tên đệm</mat-label>
+          <input formControlName="firstName" matInput placeholder="Nguyễn Văn Vũ">
+          <mat-error class="error_Msg" *ngIf="addEmployeeForm.hasError('required', 'firstName')">
+              <span>Họ tên đệm là bắt buộc</span>
+          </mat-error>
+        </mat-form-field>
       </div>
       <div class="col-md-6">
-          <div>
-              <label>Tên</label>
-            </div>
-          <div class="input-field"
-                [class.error]="addEmployeeForm.controls['lastName'].dirty && addEmployeeForm.hasError('required', 'lastName')">
-                <input formControlName="lastName" type="text" placeholder="Linh" />
-          </div>
-          <small *ngIf="addEmployeeForm.controls['lastName'].dirty && addEmployeeForm.hasError('required', 'lastName')"
-              class="text-danger">*Tênlà bắt buộc</small>
+        <mat-form-field class="example-full-width" appearance="outline" >
+          <mat-label >Tên</mat-label>
+          <input formControlName="lastName" matInput placeholder="Linh">
+          <mat-error class="error_Msg" *ngIf="addEmployeeForm.hasError('required', 'lastName')">
+              <span>Tên là bắt buộc</span>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div> 
 
-    <div class="row mt-3">
+    <div class="row">
       <div class="col-md-6">
         <div>
           <label>Giới tính</label>
@@ -64,95 +59,80 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div>
-          <label>CMND/CCCD</label>
-        </div>
-      <div class="input-field"
-            [class.error]="addEmployeeForm.controls['cccd'].dirty && addEmployeeForm.hasError('required', 'cccd')">
-            <input formControlName="cccd" type="text" placeholder="352543980" />
-      </div>
-      <small *ngIf="addEmployeeForm.controls['cccd'].dirty && addEmployeeForm.hasError('required', 'cccd')"
-          class="text-danger">*Căn cước công dân là bắt buộc</small>
+        <mat-form-field class="example-full-width" appearance="outline" >
+          <mat-label >CMND/CCCD</mat-label>
+          <input formControlName="cccd" matInput>
+          <mat-error class="error_Msg" *ngIf="addEmployeeForm.hasError('required', 'cccd')">
+              <span>Căn cước công dân là bắt buộc</span>
+          </mat-error>
+        </mat-form-field>
       </div>
       <div class="col-md-6">
-        <div>
-          <label>Địa chỉ</label>
-        </div>
-      <div class="input-field"
-            [class.error]="addEmployeeForm.controls['address'].dirty && addEmployeeForm.hasError('required', 'address')">
-            <input formControlName="address" type="text" placeholder="Số 2 Lê Lợi, phường Mỹ Bình, thành phố Long Xuyên, An Giang" />
-      </div>
-      <small *ngIf="addEmployeeForm.controls['address'].dirty && addEmployeeForm.hasError('required', 'address')"
-          class="text-danger">*Căn cước công dân là bắt buộc</small>
+        <mat-form-field class="example-full-width" appearance="outline" >
+          <mat-label >Địa chỉ</mat-label>
+          <input formControlName="address" matInput>
+          <mat-error class="error_Msg" *ngIf="addEmployeeForm.hasError('required', 'address')">
+              <span>Địa chỉ là bắt buộc</span>
+          </mat-error>
+        </mat-form-field>
       </div>
    </div>
 
-   <div class="row mt-3">
+   <div class="row">
       <div class="col-md-6">
-        <div>
-          <label>Số điện thoại</label>
-        </div>
-      <div class="input-field"
-            [class.error]="addEmployeeForm.controls['mobilePhone'].dirty && addEmployeeForm.hasError('required', 'mobilePhone')">
-            <input formControlName="mobilePhone" type="text" placeholder="0329397325" />
-      </div>
-      <small *ngIf="addEmployeeForm.controls['mobilePhone'].dirty && addEmployeeForm.hasError('required', 'mobilePhone')"
-          class="text-danger">*Số điện thoại là bắt buộc</small>
+        <mat-form-field class="example-full-width" appearance="outline" >
+          <mat-label >Số điện thoại</mat-label>
+          <input formControlName="mobilePhone" matInput>
+          <mat-error class="error_Msg" *ngIf="addEmployeeForm.hasError('required', 'mobilePhone')">
+              <span>Số điện thoại là bắt buộc</span>
+          </mat-error>
+        </mat-form-field>
       </div>
       <div class="col-md-6">
-        <div>
-          <label>Email liên hệ</label>
-        </div>
-      <div class="input-field"
-            [class.error]="addEmployeeForm.controls['email'].dirty && addEmployeeForm.hasError('required', 'email')">
-            <input formControlName="email" type="text" placeholder="linh@gmail.com" />
-      </div>
-      <small *ngIf="addEmployeeForm.controls['email'].dirty && addEmployeeForm.hasError('required', 'email')"
-          class="text-danger">*Email là bắt buộc</small>
+        <mat-form-field class="example-full-width" appearance="outline" >
+          <mat-label >Email liên hệ</mat-label>
+          <input formControlName="email" matInput>
+          <mat-error class="error_Msg" *ngIf="addEmployeeForm.hasError('required', 'email')">
+              <span>Email là bắt buộc</span>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row">
       <div class="col-md-6">
-        <div>
-          <label>Phòng ban</label>
-        </div>
-      
-        <select  class="form-control" [class.is-invalid]="
-            addEmployeeForm.controls['departmentId'].dirty &&
-            addEmployeeForm.hasError('required', 'motelId')
-          " formControlName="departmentId" aria-label="Default select example">
-          <option value="">Chọn phòng ban</option>
-          <option *ngFor="let department of listDepartment" value="{{ department.id }}">
-            {{ department.name }}
-          </option>
-        </select>
-
-
+        <mat-form-field class="example-full-width" appearance="outline" >
+          <mat-label>Phòng ban</mat-label>
+          <mat-select formControlName="departmentId" >
+              <mat-option value="">Chọn phòng ban</mat-option>
+              <mat-option *ngFor="let department of listDepartment" [value]="department.id">{{department.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
       <div class="col-md-6">
-        <div>
-          <label>Vị trí trong phòng ban</label>
-        </div>
-      <div class="input-field"
-            [class.error]="addEmployeeForm.controls['position'].dirty && addEmployeeForm.hasError('required', 'position')">
-            <input formControlName="position" type="text" placeholder="Ví dụ: Trưởng phòng" />
-      </div>
+        <!-- <mat-form-field class="example-full-width" appearance="outline" >
+          <mat-label >Vị trí trong phòng ban</mat-label>
+          <input formControlName="position" matInput>
+        </mat-form-field> -->
+        <mat-form-field class="example-full-width" appearance="outline" >
+          <mat-label>Vị trí trong phòng ban</mat-label>
+          <mat-select formControlName="position">
+              <mat-option value="">Chọn vị trí trong phòng ban</mat-option>
+              <mat-option value="Trưởng nhóm">Trưởng nhóm</mat-option>
+              <mat-option value="Phó nhóm">Phó nhóm</mat-option>
+              <mat-option value="Thành viên">Thành viên</mat-option>
+          </mat-select>
+        </mat-form-field>
       
       </div>
-    </div>
-
-
-  
-
-    <div class="d-flex justify-content-end mt-3">
-      <button (click)="onClose()" class="btn btn-danger me-3">Đóng</button>
-      <button (click)="onSubmit()" type="submit" class="btn btn-primary ">
-        Thêm
-      </button>
-    </div>
-    
+    </div>    
   </form>
 </div>
 
+<div class="d-flex justify-content-end mx-1" mat-dialog-actions>
+  <button (click)="onClose()" class="btn btn-danger me-3">Đóng</button>
+  <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!addEmployeeForm.valid">
+    Thêm
+  </button>
+</div>
 

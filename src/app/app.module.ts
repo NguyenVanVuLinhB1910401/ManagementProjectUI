@@ -37,6 +37,33 @@ import { DialogEditProjectComponent } from './componets/project/dialog-edit-proj
 import { DialogDeleteProjectComponent } from './componets/project/dialog-delete-project/dialog-delete-project.component';
 import { DialogDetailProjectComponent } from './componets/project/dialog-detail-project/dialog-detail-project.component';
 import { MatIconModule } from '@angular/material/icon';
+import { JoinProjectComponent } from './componets/join-project/join-project.component';
+
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { DialogCreateWorkComponent } from './componets/join-project/dialog-create-work/dialog-create-work.component';
+import { MyWorkComponent } from './componets/my-work/my-work.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { DetailWorkComponent } from './componets/my-work/detail-work/detail-work.component';
+import { EditWorkComponent } from './componets/my-work/edit-work/edit-work.component';
+import {MatSliderModule} from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
+import { DialogUpdateProgressComponent } from './componets/my-work/dialog-update-progress/dialog-update-progress.component';
+import { DialogUpdateStatusWorkComponent } from './componets/my-work/dialog-update-status-work/dialog-update-status-work.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { QuytrinhComponent } from './componets/quytrinh/quytrinh.component';
+import { DialogTaoQuyTrinhComponent } from './componets/quytrinh/dialog-tao-quy-trinh/dialog-tao-quy-trinh.component';
+import { DetailProjectComponent } from './componets/project/detail-project/detail-project.component';
+import { ListProjectComponent } from './componets/project/list-project/list-project.component';
+import { DialogXoaQuyTrinhComponent } from './componets/quytrinh/dialog-xoa-quy-trinh/dialog-xoa-quy-trinh.component';
+import { DialogXemChiTietComponent } from './componets/quytrinh/dialog-xem-chi-tiet/dialog-xem-chi-tiet.component';
+import { DialogChuyenBuocTiepTheoComponent } from './componets/project/dialog-chuyen-buoc-tiep-theo/dialog-chuyen-buoc-tiep-theo.component';
+import { CongViecDaGiaoComponent } from './componets/my-work/cong-viec-da-giao/cong-viec-da-giao.component';
+import { CongViecDuocGiaoComponent } from './componets/my-work/cong-viec-duoc-giao/cong-viec-duoc-giao.component';
+import {NgxUiLoaderModule } from 'ngx-ui-loader';
+import { DialogChuyenVeBuocTruocComponent } from './componets/project/dialog-chuyen-ve-buoc-truoc/dialog-chuyen-ve-buoc-truoc.component';
+import { DialogCapNhatTrangThaiDuAnComponent } from './componets/project/dialog-cap-nhat-trang-thai-du-an/dialog-cap-nhat-trang-thai-du-an.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +86,24 @@ import { MatIconModule } from '@angular/material/icon';
     DialogEditProjectComponent,
     DialogDeleteProjectComponent,
     DialogDetailProjectComponent,
+    JoinProjectComponent,
+    DialogCreateWorkComponent,
+    MyWorkComponent,
+    DetailWorkComponent,
+    EditWorkComponent,
+    DialogUpdateProgressComponent,
+    DialogUpdateStatusWorkComponent,
+    QuytrinhComponent,
+    DialogTaoQuyTrinhComponent,
+    DetailProjectComponent,
+    ListProjectComponent,
+    DialogXoaQuyTrinhComponent,
+    DialogXemChiTietComponent,
+    DialogChuyenBuocTiepTheoComponent,
+    CongViecDaGiaoComponent,
+    CongViecDuocGiaoComponent,
+    DialogChuyenVeBuocTruocComponent,
+    DialogCapNhatTrangThaiDuAnComponent,
     
 
   ],
@@ -80,7 +125,15 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    MatSidenavModule,
+    MatTabsModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatSliderModule,
+    MatCardModule,
+    MatMenuModule,
+    NgxUiLoaderModule
   ],
   providers: [
     {

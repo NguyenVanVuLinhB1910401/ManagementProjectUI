@@ -16,8 +16,23 @@ export class ProjectService {
     return this.http.get<any>(`${this.baseUrl}`);
   }
 
+  getAllProjectJoined(){
+    return this.http.get<any>(`${this.baseUrl}joined`);
+  }
+
+  getAllInfoByProject(projectId: string){
+    return this.http.get<any>(`${this.baseUrl}members/${projectId}`);
+  }
+
+  getLichSuThucHienCongViec(projectId: string){
+    return this.http.get<any>(`${this.baseUrl}lichsuthuchiencongviec/${projectId}`);
+  }
+
   getProject(id: string){
     return this.http.get<any>(`${this.baseUrl}${id}`);
+  }
+  getProjectDetail(id: string){
+    return this.http.get<any>(`${this.baseUrl}detail/${id}`);
   }
 
   addProject(data: any){
@@ -31,4 +46,9 @@ export class ProjectService {
   deleteProject(id: string){
     return this.http.delete<any>(`${this.baseUrl}${id}`);
   }
+
+  updateStatus(data: any){
+    return this.http.put(`${this.baseUrl}update-status`, data);
+  }
+  
 }

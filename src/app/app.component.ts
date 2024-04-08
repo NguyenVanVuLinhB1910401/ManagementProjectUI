@@ -2,6 +2,9 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { LoaderService } from './services/loader.service';
+import { Subscription } from 'rxjs';
+
 
 
 
@@ -11,18 +14,23 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ManagementEquipmentUI';
+  title = 'Quản lý dự án';
   //title = 'angular16';
   //Sidebar toggle show hide function
   status = false;
   showSidebar: boolean = false;
   public userName: string = "";
-  addToggle()
-  {
-    this.status = !this.status;       
-  }
+  isExpanded: boolean = false;
+  isGiamDoc: boolean = false;
+  isThanhVien: boolean = false;
+  isTruongNhom: boolean = false;
   data:any;
-  constructor(private router: Router, private auth: AuthService){
+  userLogin: any;
+  private userLoginSub: Subscription = new Subscription();
+  constructor(
+    private router: Router, 
+    public auth: AuthService,
+    public loaderService: LoaderService){
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // const currentPath = event.url;
@@ -31,11 +39,32 @@ export class AppComponent {
         this.showSidebar = !['/login', '/signup', '/reset'].includes(currentPathWithoutParams);
       }
     });
+    
   }
 
   ngOnInit(): void {
+    this.userLoginSub = this.auth.userLogin$.subscribe(value => {
+      this.userLogin = value;
+    });
+    if(this.userLogin?.Roles === 'GiamDoc' || this.userLogin?.Roles?.includes("GiamDoc")) this.isGiamDoc = true;
+    else if(this.userLogin?.Roles === 'ThanhVien' || this.userLogin?.Roles?.includes("ThanhVien")) this.isThanhVien = true;
+    else if(this.userLogin?.Roles === 'TruongNhom' || this.userLogin?.Roles?.includes("TruongNhom")) this.isTruongNhom = true;
   }
+
   logout(){
     this.auth.logout();
+  }
+
+  toggleCollapse(): void {
+    this.isExpanded = !this.isExpanded;
+  }
+
+  addToggle()
+  {
+    this.status = !this.status;       
+  }
+
+  ngOnDestroy(): void {
+    this.userLoginSub.unsubscribe();
   }
 }

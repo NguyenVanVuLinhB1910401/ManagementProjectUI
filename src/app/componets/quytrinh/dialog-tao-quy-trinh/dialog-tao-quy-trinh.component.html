@@ -1,0 +1,115 @@
+<div mat-dialog-title class="font-weight-bold text-center" >Tạo quy trình mới</div>
+<div class="row p-0" mat-dialog-content >
+    <form class="mt-2" [formGroup]="taoQuyTrinhForm" >
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field class="example-full-width" appearance="outline" >
+                    <mat-label >Tên quy trình</mat-label>
+                    <input formControlName="tenQuyTrinh" matInput>
+                    <mat-error class="error_Msg" *ngIf="taoQuyTrinhForm.hasError('required', 'tenQuyTrinh')"
+                    class="text-danger">
+                        <span>Tên quy trình là bắt buộc</span>
+                    </mat-error>
+          </mat-form-field>
+        </div>
+      </div> 
+  
+    </form>
+  
+    <div class="d-sm-flex align-items-center justify-content-between mb-2">
+      <h1 class="mb-0">Form cấu hình các bước thực hiện</h1>
+      <button class="btn btn-primary" (click)="taoBuocThucHien()" type="submit" [disabled]="!taoBuocThucHienForm.valid">Thêm bước thực hiện</button>
+    </div>
+
+      <form [formGroup]="taoBuocThucHienForm" >
+        <div class="row">
+            <div class="col-lg-4">
+            <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label >Tên bước</mat-label>
+                <input formControlName="tenBuoc" matInput>
+                <mat-error class="error_Msg" *ngIf="taoBuocThucHienForm.hasError('required', 'tenBuoc')"
+                class="text-danger">
+                    <span>Tên bước thực hiện là bắt buộc</span>
+                </mat-error>
+            </mat-form-field>
+            
+            </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width" appearance="outline" >
+              <mat-label>Phòng ban</mat-label>
+              <mat-select formControlName="departmentId" (ngModelChange)="getAllEmployeeByDepartment($event)">
+                  <mat-option value="">Tất cả phòng ban</mat-option>
+                  <mat-option *ngFor="let department of listDepartment" [value]="department.id">{{department.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width" appearance="outline" >
+              <mat-label>Người thực hiện</mat-label>
+              <mat-select formControlName="nguoiThucHienId" >
+                  <mat-option *ngFor="let employee of listEmployeeByDepartment" [value]="employee.id">{{employee.firstName + " " + employee.lastName}}</mat-option>
+              </mat-select>
+              <mat-error class="error_Msg" *ngIf="taoBuocThucHienForm.controls['nguoiThucHienId'].dirty && taoBuocThucHienForm.hasError('required', 'nguoiThucHienId')"
+              class="text-danger">
+                  <span>Người thực hiện là bắt buộc</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div> 
+      </form>
+
+      <div class="d-sm-flex align-items-center justify-content-between mb-2">
+        <h1 class="mb-0 ">Quy trình các bước thực hiện</h1>
+        <button class="btn btn-danger" (click)="deleteAllBuocThucHien()">Xóa tất cả các bước</button>
+      </div>
+
+      <div class="d-sm-flex align-items-center justify-content-between">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="no">
+              <th mat-header-cell *matHeaderCellDef style="width: 30px;">STT</th>
+              <td mat-cell *matCellDef="let row; let i = index" style="width: 30px;"> {{i + 1}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tenBuoc" style="width: 25%;">
+              <th mat-header-cell *matHeaderCellDef >Tên bước</th>
+              <td mat-cell *matCellDef="let row;"> {{row.tenBuoc}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nguoiThucHien" style="width: 50%;">
+              <th mat-header-cell *matHeaderCellDef >Người thực hiện</th>
+              <td mat-cell *matCellDef="let row; let i = index;"> {{row.nguoiThucHien}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="tenBuocTruocDo" style="width: 50%;">
+            <th mat-header-cell *matHeaderCellDef >Bước trước</th>
+            <td mat-cell *matCellDef="let row; let i = index;"> {{row.tenBuocTruocDo}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="tenBuocTiepTheo" style="width: 50%;">
+            <th mat-header-cell *matHeaderCellDef >Bước tiếp theo</th>
+            <td mat-cell *matCellDef="let row; let i = index;"> {{row.tenBuocTiepTheo}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="action" >
+              <th mat-header-cell *matHeaderCellDef >Hành động</th>
+              <td mat-cell *matCellDef="let row; let i = index" > 
+                <mat-icon (click)="deleteBuocThucHien(i)" style="color: red;">delete</mat-icon>
+              </td>
+          </ng-container>
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
+  </div>
+  
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button (click)="onClose()" class="btn btn-danger me-3">Đóng</button>
+    <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="!taoQuyTrinhForm.valid">
+      Tạo quy trình
+    </button>
+  </div>
+  
+  
+  

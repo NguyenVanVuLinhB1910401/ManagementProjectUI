@@ -1,0 +1,96 @@
+.mat-elevation-z8 {
+    width: 100%;
+}
+
+.table-container {
+    width: 100%;
+    // max-height: 100vh;
+    // min-height: 100vh;
+    // height: calc(100vh - 11rem);
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    max-height: 100vh;
+    border-collapse: collapse;
+    display: block;
+}
+
+th,
+td {
+    text-align: left;
+    min-width: 100px;
+    /* Thiết lập min-width để đảm bảo cột không quá chật */
+    flex: 1;
+    /* Thiết lập flex để tự động điều chỉnh chiều rộng của các cột */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: var(--blue);
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    mat-icon {
+        cursor: pointer;
+    }
+
+    /* Định dạng cột Hành động */
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .custom-column {
+        padding: 8px 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Định dạng chiều rộng cho các cột */
+    .custom-column:nth-child(1) {
+        width: 3%;
+        /* STT */
+        text-align: center;
+    }
+
+    .custom-column:nth-child(2) {
+        width: 40%;
+        /* Tên quy trình */
+    }
+
+    .custom-column:nth-child(3) {
+        width: 30%;
+        /* Người tạo */
+    }
+
+    .custom-column:nth-child(4) {
+        width: 15%;
+        /* Phòng ban */
+    }
+
+    .custom-column:nth-child(5) {
+        width: 15%;
+        /* Vị trí trong phòng ban */
+    }
+}

@@ -1,0 +1,45 @@
+
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
+    <h1 class="h3 mb-0 text-gray-800">DANH SÁCH QUY TRÌNH ĐÃ TẠO</h1>
+    <button class="btn btn-primary" (click)="openDialog()">Tạo quy trình mới</button>
+</div>
+<div class="table-container">
+        <table mat-table [dataSource]="dataSource" class="custom-table">
+            <ng-container matColumnDef="no" style="width: 5%;">
+                <th mat-header-cell *matHeaderCellDef class="custom-column">STT</th>
+                <td mat-cell *matCellDef="let row; let i = index" class="custom-column"> {{row.no + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tenQuyTrinh" style="width: 25%;">
+                <th mat-header-cell *matHeaderCellDef class="custom-column">Tên quy trình</th>
+                <td mat-cell *matCellDef="let row;" class="custom-column"> {{row.tenQuyTrinh}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="nguoiTao" style="width: 50%;">
+                <th mat-header-cell *matHeaderCellDef class="custom-column" >Người tạo</th>
+                <td mat-cell *matCellDef="let row;" class="custom-column" > {{row.nguoiTao}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdDate" style="width: 20%;">
+                <th mat-header-cell *matHeaderCellDef class="custom-column" >Ngày tạo</th>
+                <td mat-cell *matCellDef="let row;" class="custom-column" > {{row.createdDate | date:'dd-MM-yyyy HH:mm:ss'}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="action" style="width: 20%;">
+                <th mat-header-cell *matHeaderCellDef class="custom-column" >Hành động</th>
+                <td mat-cell *matCellDef="let row;" class="custom-column"> 
+                    <div>
+                        <mat-icon class="me-2 " (click)="openDialogDetail(row.id)">remove_red_eye</mat-icon>
+                        <mat-icon class="me-2 text-danger" (click)="openDialogDelete(row.id, row.tenQuyTrinh)">delete</mat-icon>
+                    </div>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+</div>
+
+

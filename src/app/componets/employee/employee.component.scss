@@ -1,0 +1,67 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+  
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    th {
+      background-color: var(--blue);
+      color: #fff;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  
+    tr:hover {
+      background-color: #ddd;
+    }
+  
+    mat-icon {
+      cursor: pointer;
+    }
+  
+    /* Định dạng cột STT */
+    [matColumnDef="no"] {
+      width: 5%;
+    }
+  
+    /* Định dạng cột Họ tên */
+    [matColumnDef="fullName"] {
+      width: 25%;
+    }
+  
+    /* Định dạng cột Email */
+    [matColumnDef="email"] {
+      width: 50%;
+    }
+  
+    /* Định dạng cột Số điện thoại */
+    [matColumnDef="mobilePhone"] {
+      width: 20%;
+    }
+  
+    /* Định dạng cột Giới tính */
+    [matColumnDef="gender"] {
+      width: 20%;
+    }
+  
+    /* Định dạng cột Ngày sinh */
+    [matColumnDef="dateOfBirth"] {
+      width: 20%;
+    }
+  
+    /* Định dạng cột Hành động */
+    [matColumnDef="action"] {
+      width: 20%;
+  
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+  

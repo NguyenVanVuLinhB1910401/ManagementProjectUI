@@ -70,7 +70,6 @@ a:hover{
 
 
 .btn{
-  /* margin-top: 20px; */
   border-radius: 15px;
 }
 
@@ -120,18 +119,7 @@ img {
 }
 
 
-/*!
-* Start Bootstrap - SB Admin 2 v4.1.3 (https://startbootstrap.com/theme/sb-admin-2)
-* Copyright 2013-2021 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin-2/blob/master/LICENSE)
-*/
 
-/*!
-* Bootstrap v4.6.0 (https://getbootstrap.com/)
-* Copyright 2011-2021 The Bootstrap Authors
-* Copyright 2011-2021 Twitter, Inc.
-* Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-*/
 :root {
   --blue: #4e73df;
   --indigo: #6610f2;
@@ -10692,7 +10680,9 @@ a:focus {
   }
   .sidebar.toggled {
     overflow: visible;
-    width: 6.5rem !important;
+    /* width: 6.5rem !important; */
+    /* width: -14rem !important; */
+    display: none;
   }
   .sidebar.toggled .nav-item .collapse {
     position: absolute;

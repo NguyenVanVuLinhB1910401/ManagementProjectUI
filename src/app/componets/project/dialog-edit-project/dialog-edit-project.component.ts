@@ -206,7 +206,7 @@ export class DialogEditProjectComponent {
   }
 
   changePosition($event: any, index: number){
-      this.ELEMENT_DATA[index].position = $event.target.value;
+    this.ELEMENT_DATA[index].position = $event.value;
   }
 }
 

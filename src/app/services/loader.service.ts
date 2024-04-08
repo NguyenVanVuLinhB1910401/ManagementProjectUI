@@ -1,0 +1,22 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LoaderService {
+  public isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  constructor() { }
+  
+  hideLoader() {
+    setTimeout(() => {
+      this.isLoading.next(false);
+    });
+  }
+
+  showLoader() {
+    setTimeout(() => {
+      this.isLoading.next(true);
+    });
+  }
+}

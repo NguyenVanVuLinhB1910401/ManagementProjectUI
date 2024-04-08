@@ -8,6 +8,7 @@ import ValidateForm from 'src/app/helpers/validateform';
 import { DepartmentService } from 'src/app/services/department.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { ProjectService } from 'src/app/services/project.service';
+import { QuyTrinhService } from 'src/app/services/quy-trinh.service';
 
 @Component({
   selector: 'app-dialog-add-project',
@@ -20,6 +21,7 @@ export class DialogAddProjectComponent {
   listDepartment: any;
   listEmployeeByDepartment: any;
   listMember = [];
+  listQuyTrinh: any;
   displayedColumns: string[] = ['no', 'fullName', 'position', 'action'];
   dataSource: MatTableDataSource<Employee>;
   ELEMENT_DATA: Employee[] = [];
@@ -31,6 +33,7 @@ export class DialogAddProjectComponent {
     private projectService: ProjectService,
     private toast: NgToastService,
     private datePipe: DatePipe,
+    private quyTrinhService: QuyTrinhService
   ){
     this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   }
@@ -42,6 +45,7 @@ export class DialogAddProjectComponent {
       type: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
+      quyTrinhId: ['', Validators.required]
     });
     this.addMemberForm = this.fb.group({
       departmentId: [''],
@@ -50,14 +54,30 @@ export class DialogAddProjectComponent {
     });
     this.getAllDepartment();
     this.getAllEmployeeByDepartment("");
+    this.getAllQuyTrinh();
   }
 
   getAllDepartment(){
     this.listDepartment = [];
     this.departmentService.getAllDepartment().subscribe({
       next: (res: any) => {
-        if(res.length > 0){
+        if(res?.length > 0){
           this.listDepartment = res;
+        }
+      },
+      error: (err) => {
+        //console.log(err);
+        //this.toast.error({detail: "Thông báo", summary: err.error.message, duration: 5000, position: "topCenter"});
+      }
+    })
+  }
+
+  getAllQuyTrinh(){
+    this.listQuyTrinh = [];
+    this.quyTrinhService.getAllQuyTrinh().subscribe({
+      next: (res: any) => {
+        if(res?.length > 0){
+          this.listQuyTrinh = res;
         }
       },
       error: (err) => {
@@ -105,7 +125,8 @@ export class DialogAddProjectComponent {
         address: formObj.address,
         type: formObj.type,
         startDate: this.datePipe.transform(formObj.startDate, 'yyyy-MM-dd') + 'T00:00:00.000Z',
-        endDate: this.datePipe.transform(formObj.endDate, 'yyyy-MM-dd') + 'T00:00:00.000Z',
+        endDate: this.datePipe.transform(formObj.endDate, 'yyyy-MM-dd') + 'T23:59:59.999Z',
+        quyTrinhId: formObj.quyTrinhId,
         members: this.ELEMENT_DATA.map(e => {
           return {
             memberId: e.id,
@@ -169,8 +190,8 @@ export class DialogAddProjectComponent {
     this.dataSource.data = this.ELEMENT_DATA;
   }
 
-  changePosition($event: any, index: number){
-      this.ELEMENT_DATA[index].position = $event.target.value;
+  changePosition($event: any, index: number){    
+    this.ELEMENT_DATA[index].position = $event.value;
   }
 }
 export interface Employee {

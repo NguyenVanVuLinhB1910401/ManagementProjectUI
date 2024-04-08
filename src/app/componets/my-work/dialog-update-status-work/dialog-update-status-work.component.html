@@ -1,0 +1,25 @@
+
+
+<div mat-dialog-title class="font-weight-bold text-center">Cập nhật trạng thái thực hiện</div>
+<div  mat-dialog-content>
+    <mat-form-field class="example-full-width mt-2" appearance="outline" >
+        <mat-label>Trạng thái công việc</mat-label>
+        <mat-select [(ngModel)]="status">
+            <mat-option [value]="1">Đã giao việc</mat-option>
+            <mat-option [value]="2">Đang xử lý</mat-option>
+            <mat-option [value]="3">Tạm dừng thực hiện</mat-option>
+            <mat-option [value]="4">Đã hoàn thành</mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>
+<div class="d-flex justify-content-end" mat-dialog-actions>
+    <button (click)="onClose()" class="btn btn-danger me-3">Đóng</button>
+    <button (click)="onSubmit()" type="submit" class="btn btn-primary ">
+      Lưu
+    </button>
+  </div>
+
+
+  
+  
+

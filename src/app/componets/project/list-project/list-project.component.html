@@ -1,0 +1,58 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
+    <h1 class="h3 mb-0 text-gray-800">DANH SÁCH DỰ ÁN</h1>
+    <button class="btn btn-primary" (click)="openDialog()">Khởi tạo dự án</button>
+</div>
+<div class="">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="no" style="width: 5%;">
+                <th mat-header-cell *matHeaderCellDef >STT</th>
+                <td mat-cell *matCellDef="let row; let i = index"> {{row.no + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name" style="width: 25%;">
+                <th mat-header-cell *matHeaderCellDef >Tên dự án</th>
+                <td mat-cell *matCellDef="let row;"> {{row.name}} </td>
+            </ng-container>
+
+            
+
+            <ng-container matColumnDef="startDate" style="width: 20%;">
+                <th mat-header-cell *matHeaderCellDef >Ngày bắt đầu</th>
+                <td mat-cell *matCellDef="let row;"> {{row.startDate | date:'dd-MM-yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="endDate" style="width: 20%;">
+                <th mat-header-cell *matHeaderCellDef >Ngày kết thúc</th>
+                <td mat-cell *matCellDef="let row;"> {{row.endDate | date:'dd-MM-yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="completeDate" style="width: 20%;">
+                <th mat-header-cell *matHeaderCellDef >Ngày hoàn thành</th>
+                <td mat-cell *matCellDef="let row;"> {{row.completeDate | date:'dd-MM-yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tienDo" style="width: 50%;">
+                <th mat-header-cell *matHeaderCellDef >Tiến độ</th>
+                <td mat-cell *matCellDef="let row;"> {{row.tienDo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status" style="width: 20%;">
+                <th mat-header-cell *matHeaderCellDef >Trạng thái</th>
+                <td mat-cell *matCellDef="let row;" (click)="openDialogCapNhatTrangThaiDuAn(row.id, row.status)"> {{row.statusName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action" style="width: 20%;">
+                <th mat-header-cell *matHeaderCellDef >Hành động</th>
+                <td mat-cell *matCellDef="let row;"> 
+                    <div>
+                        <mat-icon class="" [routerLink]="'./detail/' + row.id">remove_red_eye</mat-icon>
+                        <mat-icon class="ml-2 text-warning" (click)="openDialogEdit(row.id)">edit</mat-icon>
+                        <mat-icon class="ml-2 text-danger" (click)="openDialogDelete(row.id, row.name)">delete</mat-icon>
+                    </div>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+</div>

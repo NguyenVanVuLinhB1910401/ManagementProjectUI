@@ -28,7 +28,7 @@ export class EmployeeComponent implements OnInit {
   }
   openDialog() {
     const dialogRef = this.dialog.open(DialogAddEmployeeComponent, {
-     
+      width: "90%",
     });
     dialogRef.afterClosed().subscribe(result => {
       // console.log(`Dialog result: ${result}`);
@@ -73,6 +73,7 @@ export class EmployeeComponent implements OnInit {
  
   openDialogEdit(id: string) {
     const dialogRef = this.dialog.open(DialogEditEmployeeComponent, {
+      width: "90%",
       data: {id: id}
     });
     dialogRef.afterClosed().subscribe(result => {

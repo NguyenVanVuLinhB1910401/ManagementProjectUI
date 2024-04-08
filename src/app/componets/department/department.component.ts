@@ -8,6 +8,7 @@ import { DepartmentService } from 'src/app/services/department.service';
 import { NgToastService } from 'ng-angular-popup';
 import { DialogEditDepartmentComponent } from './dialog-edit-department/dialog-edit-department.component';
 import { DialogDeleteDepartmentComponent } from './dialog-delete-department/dialog-delete-department.component';
+import { LoaderService } from 'src/app/services/loader.service';
 
 
 
@@ -25,7 +26,8 @@ export class DepartmentComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private toast: NgToastService,
-    private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    public loaderService: LoaderService
     ){
     this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   }
@@ -64,7 +66,13 @@ export class DepartmentComponent implements OnInit {
       },
       error: (err) => {
         //console.log(err);
-        //this.toast.error({detail: "Thông báo", summary: err.error.message, duration: 5000, position: "topCenter"});
+        if(err.status == 403){
+          this.toast.error({detail: "Thông báo", summary: "Không có quyền truy cập", duration: 5000, position: "topCenter"});
+
+        }else{
+          this.toast.error({detail: "Thông báo", summary: err.error?.message ?? err?.message, duration: 5000, position: "topCenter"});
+
+        }
       }
     })
   }

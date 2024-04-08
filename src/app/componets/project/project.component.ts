@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgToastService } from 'ng-angular-popup';
@@ -6,13 +6,14 @@ import { ProjectService } from 'src/app/services/project.service';
 import { DialogAddProjectComponent } from './dialog-add-project/dialog-add-project.component';
 import { DialogEditProjectComponent } from './dialog-edit-project/dialog-edit-project.component';
 import { DialogDeleteProjectComponent } from './dialog-delete-project/dialog-delete-project.component';
+import { DialogCapNhatTrangThaiDuAnComponent } from './dialog-cap-nhat-trang-thai-du-an/dialog-cap-nhat-trang-thai-du-an.component';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss']
 })
-export class ProjectComponent {
+export class ProjectComponent implements OnInit {
   displayedColumns: string[] = ['no', 'name', 'address', 'startDate', 'endDate', 'completeDate', 'status', 'action'];
   dataSource: MatTableDataSource<Project>;
   ELEMENT_DATA: Project[] = [];
@@ -29,6 +30,7 @@ export class ProjectComponent {
   openDialog() {
     const dialogRef = this.dialog.open(DialogAddProjectComponent, {
       width: "90%",
+      //height: "95%"
     });
     dialogRef.afterClosed().subscribe(result => {
       // console.log(`Dialog result: ${result}`);
@@ -53,6 +55,9 @@ export class ProjectComponent {
               status: element.status,
               members: element.members
             };
+            if(project.status == 1){
+              project.statusName = "Vừa mới tạo"
+            }
             this.ELEMENT_DATA.push(project);
           });
           this.dataSource.data = this.ELEMENT_DATA;
@@ -87,6 +92,17 @@ export class ProjectComponent {
       this.getAllProject();
     });
   }
+
+  openDialogUpdateStatusProject(projectId: string, status: number){
+    const dialogRef = this.dialog.open(DialogCapNhatTrangThaiDuAnComponent, {
+      width: "35%",
+      data: {id: projectId, statusInit: status}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(`Dialog result: ${result}`);
+      this.getAllProject();
+    });
+  }
 }
 
 
@@ -99,5 +115,6 @@ export interface Project {
   endDate: string;
   completeDate: string;
   status: number;
+  statusName?: string;
   members: any;
 }

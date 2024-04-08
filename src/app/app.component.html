@@ -1,65 +1,331 @@
-<div id="page-top" [ngClass]="status ? 'toggled' : ''"  *ngIf="showSidebar; else noSidebar">
-
-
+<div id="page-top"   *ngIf="showSidebar; else noSidebar">
   <div id="wrapper">
-
-      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-         
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" [ngClass]="status ? 'toggled' : ''" id="accordionSidebar">
           <a class="sidebar-brand d-flex align-items-center justify-content-center"routerLink="/">
               <div class="sidebar-brand-icon rotate-n-15">
                   <i class="fas fa-laugh-wink"></i>
               </div>
               <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
           </a>
-
-         
           <hr class="sidebar-divider my-0">
 
-         
-          <li class="nav-item active">
-              <a class="nav-link" routerLink="dashboard"              >
-                  <i class="fas fa-fw fa-tachometer-alt"></i>
-                  <span>Trang chủ</span></a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" routerLink="project"              >
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Danh sách dự án</span></a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" routerLink="dashboard"              >
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Danh sách công việc</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="department"              >
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Danh sách phòng ban</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="employee"              >
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Danh sách nhân viên</span></a>
-          </li>
+          <div *ngIf="isGiamDoc">
+            <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="dashboard">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-home"></i>
+                            <span>Trang chủ</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li>
 
+              <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="quy-trinh">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Quản lý quy trình</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="project">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Quản lý dự án</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li>
+    
+              <li class="nav-item">
+                <a class="nav-link collapsed p-2" (click)="toggleCollapse()">
+                    <div class="d-flex justify-content-between align-items-center ">
+                        <div >
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span>Quản lý công việc</span>
+                        </div>
+                        <div class="pt-1">
+                            <mat-icon class="dropdown-icon " [class.rotate-90]="isExpanded" [class.rotate-270]="!isExpanded">arrow_drop_down</mat-icon>
+                        </div>
+                    </div>
+                    
+                </a>
+                <div id="collapseTwo" class="collapse" [class.show]="isExpanded" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" routerLink="my-work/assign">Công việc đã giao</a>
+                        <a class="collapse-item" routerLink="my-work/assigned">Công việc được giao</a>
+                    </div>
+                </div>
+            </li>
+            
+              <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="department">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-sitemap"></i>
+                            <span>Quản lý phòng ban</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li>
+    
+              <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="employee">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fa fa-address-book"></i>
+                            <span>Quản lý nhân sự</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li>
+    
+              <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="join-project">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-folder-open"></i>
+                            <span>Danh sách dự án tham gia</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li> -->
+          </div>
+
+          <div *ngIf="isTruongNhom">
+            <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="dashboard">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-home"></i>
+                            <span>Trang chủ</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li>
+              
+              <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="project">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Quản lý dự án</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li>
+     -->
+              <li class="nav-item">
+                <a class="nav-link collapsed p-2" (click)="toggleCollapse()">
+                    <div class="d-flex justify-content-between align-items-center ">
+                        <div >
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span>Quản lý công việc</span>
+                        </div>
+                        <div class="pt-1">
+                            <mat-icon class="dropdown-icon " [class.rotate-90]="isExpanded" [class.rotate-270]="!isExpanded">arrow_drop_down</mat-icon>
+                        </div>
+                    </div>
+                    
+                </a>
+                <div id="collapseTwo" class="collapse" [class.show]="isExpanded" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" routerLink="my-work/assign">Công việc đã giao</a>
+                        <a class="collapse-item" routerLink="my-work/assigned">Công việc được giao</a>
+                    </div>
+                </div>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="quy-trinh">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Quản lý quy trình</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li> -->
+              <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="department">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-sitemap"></i>
+                            <span>Quản lý phòng ban</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li> -->
+    
+              <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="employee">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fa fa-address-book"></i>
+                            <span>Quản lý nhân sự</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li> -->
+    
+              <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="join-project">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-folder-open"></i>
+                            <span>Danh sách dự án tham gia</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li> -->
+          </div>
+
+          <div *ngIf="isThanhVien">
+            <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="dashboard">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-home"></i>
+                            <span>Trang chủ</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li>
+              
+              <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="project">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Quản lý dự án</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li>
+     -->
+              <li class="nav-item">
+                <a class="nav-link collapsed p-2" (click)="toggleCollapse()">
+                    <div class="d-flex justify-content-between align-items-center ">
+                        <div >
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span>Quản lý công việc</span>
+                        </div>
+                        <div class="pt-1">
+                            <mat-icon class="dropdown-icon " [class.rotate-90]="isExpanded" [class.rotate-270]="!isExpanded">arrow_drop_down</mat-icon>
+                        </div>
+                    </div>
+                    
+                </a>
+                <div id="collapseTwo" class="collapse" [class.show]="isExpanded" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" routerLink="my-work/assign">Công việc đã giao</a>
+                        <a class="collapse-item" routerLink="my-work/assigned">Công việc được giao</a>
+                    </div>
+                </div>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="quy-trinh">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Quản lý quy trình</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li> -->
+              <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="department">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-sitemap"></i>
+                            <span>Quản lý phòng ban</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li> -->
+    
+              <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="employee">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fa fa-address-book"></i>
+                            <span>Quản lý nhân sự</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li> -->
+    
+              <!-- <li class="nav-item">
+                <a class="nav-link collapsed p-2" routerLink="join-project">
+                    <div class="d-flex justify-content-between align-items-center pt-1 pb-1">
+                        <div >
+                            <i class="fas fa-folder-open"></i>
+                            <span>Danh sách dự án tham gia</span>
+                        </div>
+                        
+                    </div>
+                </a>
+              </li> -->
+          </div>
           
           
           <hr class="sidebar-divider d-none d-md-block">
-
-        
-
-         
       </ul>
      
       <div id="content-wrapper" class="d-flex flex-column">   
           <div id="content">
-              <nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow">
-                <div
-                class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-1 my-md-0 mw-100">
-                    <div class="">
-                        <strong>QUẢN LÝ DỰ ÁN ĐẦU TƯ XÂY DỰNG</strong>
+            <!-- <div class="loader-container" *ngIf="loaderService.isLoading | async">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                <mat-spinner style="top: 50%; left: 50%;"></mat-spinner>
+            </div> -->
+              <nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow d-flex justify-content-between">
+                <div class="">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div (click)="addToggle()" class="pt-1">
+                            <mat-icon>menu</mat-icon>
+                        </div>
+                        <div class="ml-2">
+                            <strong>CÔNG TY TNHH TƯ VẤN VÀ ĐẦU TƯ XÂY DỰNG</strong>
+                        </div>
                     </div>
+                </div>
+
+                <div>
+                    <div class="d-flex justify-content-between align-items-center" mat-icon-button [matMenuTriggerFor]="appMenu">
+                        <div>
+                            <span>{{userLogin?.FullName}}</span>
+                        </div>
+                        <div class="pt-1">
+                            <mat-icon>more_vert</mat-icon>
+                        </div>
+                    </div>
+
+                    <mat-menu #appMenu="matMenu" yPosition="above">
+                        <button mat-menu-item>Thông tin tài khoản</button>
+                        <button mat-menu-item (click)="logout()">Đăng xuất</button>
+                    </mat-menu>
                 </div>
               </nav>
         
@@ -68,30 +334,26 @@
               </div>
           </div>
 
-          <footer class="sticky-footer bg-white p-3">
+          <footer class="sticky-footer bg-white p-3" >
               <div class="container my-auto">
                   <div class="copyright text-center my-auto">
                       <span>Copyright &copy; Your Website 2024 Nguyen Van Vu Linh - VNPT An Giang</span>
                   </div>
               </div>
           </footer>
-    
-
       </div>
- 
-
   </div>
-
-  <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-  </a>
-
-  
 </div>
-
+  
 <ng-template #noSidebar>
   <router-outlet></router-outlet>
 </ng-template>
 
 
 <ng-toast ></ng-toast>
+<ngx-ui-loader
+ bgsColor= "#ffcc48"
+ pbColor="#b12b7f"
+ fgsType="ball-spin-clockwise"
+></ngx-ui-loader>
+

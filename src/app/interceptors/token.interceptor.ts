@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -6,18 +6,34 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, catchError, switchMap, throwError } from 'rxjs';
+import { Observable, catchError, finalize, switchMap, throwError, timeout } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { NgToastService } from 'ng-angular-popup';
 import { Router } from '@angular/router';
 import { TokenApiModel } from '../models/token-api.model';
+import { LoaderService } from '../services/loader.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  constructor(private auth: AuthService, private toast: NgToastService, private router: Router) {}
+  private _activeRequest = 0;
+  constructor(
+    private auth: AuthService, 
+    private toast: NgToastService, 
+    private router: Router, 
+    public loaderService: LoaderService,
+    private _ngxUiLoaderService: NgxUiLoaderService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    // this.loaderService.isLoading.next(true);
+    //this.loaderService.showLoader();
+    if(this._activeRequest === 0){
+      setTimeout(() => {
+        this._ngxUiLoaderService.start();
+      })
+    }
+    this._activeRequest++;
     const accessToken = this.auth.getAccessToken();
     if(accessToken){
       request = request.clone({
@@ -30,8 +46,24 @@ export class TokenInterceptor implements HttpInterceptor {
            return this.handleUnAuthorizedError(request, next);
         }
         return throwError(() => err);
-      })
+      }),
+      finalize(
+        () => {
+          // this.loaderService.isLoading.next(false);
+          //this.loaderService.hideLoader();
+          this._stopLoader();
+        }
+      )
     );
+  }
+
+  private _stopLoader(){
+    this._activeRequest--;
+      if(this._activeRequest === 0){
+        setTimeout(() => {
+          this._ngxUiLoaderService.stop();
+        })
+      }
   }
   handleUnAuthorizedError(req: HttpRequest<any>, next: HttpHandler){
     if (!this.isRefreshing) {

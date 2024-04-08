@@ -1,0 +1,153 @@
+<div mat-dialog-title class="font-weight-bold text-center" >{{work?.title}}</div>
+<div mat-dialog-content >
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <h3><strong>Người giao:</strong> {{work?.createdUser?.firstName + " " + work?.createdUser?.lastName}}</h3>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <h3><strong>Người thực hiện:</strong> {{work?.assignUser?.firstName + " " + work?.assignUser?.lastName }}</h3>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <h3><strong>Ngày bắt đầu:</strong> {{work?.startDate | date:'dd-MM-yyyy'}}</h3>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <h3><strong>Trạng thái:</strong> {{work?.statusName}}</h3>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <h3><strong>Tiến độ:</strong> {{work?.progress}}%</h3>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <h3><strong>Ngày kết thúc:</strong> {{work?.endDate | date:'dd-MM-yyyy'}}</h3>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <h3><strong>Trạng thái:</strong> {{work?.statusName}}</h3>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <h3><strong>Tiến độ:</strong> {{work?.progress}}%</h3>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <h3><strong>Ngày kết thúc:</strong> {{work?.endDate | date:'dd-MM-yyyy'}}</h3>
+        </div>
+    </div> -->
+    <div class="row">
+        <h3 class="mb-0"><strong>Mô tả nội dung thực hiện:</strong></h3>
+        <h3>{{work?.content}}</h3>
+    </div>
+    <div class="row">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="mb-0s"><strong>Danh sách tập tin đính kèm</strong></h3>
+            </div>
+            <div *ngIf="work?.attachmentFiles?.length > 0">
+                <button class="btn btn-primary " (click)="downloadAllFiles(work.id, work.title)">Tải xuống tất cả tập tin</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-flex align-items-center" *ngFor="let file of work?.attachmentFiles; let i = index;">
+            <div><p>{{file.fileName}}</p></div>
+            <div><mat-icon  class="text-danger" (click)="downloadFile(file.filePath, file.fileName)">download</mat-icon></div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="isShowTableSubwork">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="mb-0"><strong>Danh sách các công việc con</strong></h3>
+            </div>
+            <!-- <div *ngIf="work?.attachmentFiles?.length > 0">
+                <button class="btn btn-primary " (click)="downloadAllFiles(work.id, work.title)">Tải xuống tất cả tập tin</button>
+            </div> -->
+        </div>
+    </div>
+    <div class="" *ngIf="isShowTableSubwork">
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSourceSubwork">
+                <ng-container matColumnDef="no" >
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 50px;">STT</th>
+                    <td mat-cell *matCellDef="let row; let i = index" style="min-width: 50px;"> {{i + 1}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="title" >
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 300px;">Tên công việc</th>
+                    <td mat-cell *matCellDef="let row; " style="min-width: 300px;"> {{row.title}} </td>
+                </ng-container>
+        
+                <!-- <ng-container matColumnDef="project" >
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 300px;">Dự án</th>
+                    <td mat-cell *matCellDef="let row;" style="min-width: 300px;"> {{row.project}} </td>
+                </ng-container> -->
+        
+                <!-- <ng-container matColumnDef="assignUser">
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 250px;">Người giao</th>
+                    <td mat-cell *matCellDef="let row;" style="min-width: 250px;"> {{row.assignUser}} </td>
+                </ng-container> -->
+        
+                <ng-container matColumnDef="assignedUser" >
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 250px;" >Người thực hiện</th>
+                    <td mat-cell *matCellDef="let row;" style="min-width: 250px;"> {{row.assignedUser}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="startDate" >
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 150px;" >Ngày bắt đầu</th>
+                    <td mat-cell *matCellDef="let row;" style="min-width: 150px;"> {{row.startDate | date:'dd-MM-yyyy'}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="endDate" >
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 150px;">Ngày kết thúc</th>
+                    <td mat-cell *matCellDef="let row;" style="min-width: 150px;"> {{row.endDate | date:'dd-MM-yyyy'}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="completeDate" >
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 150px;">Ngày hoàn thành</th>
+                    <td mat-cell *matCellDef="let row;" style="min-width: 150px;"> {{row.completeDate | date:'dd-MM-yyyy'}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="status" >
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 150px;">Trạng thái</th>
+                    <td mat-cell *matCellDef="let row;" style="min-width: 150px;" > {{row.statusName}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="progress" >
+                    <th mat-header-cell *matHeaderCellDef style="min-width: 150px;">Tiến độ</th>
+                    <td mat-cell *matCellDef="let row;" style="min-width: 150px;" > {{row.progress + "%"}} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="action" >
+                    <th mat-header-cell *matHeaderCellDef >Hành động</th>
+                    <td mat-cell *matCellDef="let row;"> 
+                        
+                            <div>
+                                <mat-icon (click)="openDialogDetail(row.id)">remove_red_eye</mat-icon>
+                                <!-- <mat-icon class="me-2 text-danger">delete</mat-icon> -->
+                            </div>
+                       
+                    </td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsSubwork;"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsSubwork;"></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end mr-1" mat-dialog-actions >
+    <button (click)="onClose()" class="btn btn-danger">Đóng</button>
+    <button *ngIf="isAllowPrevious && this.data?.type === 2" (click)="openDialogChuyenVeBuocTruoc(work?.project?.id, work?.project?.name, work?.project?.buocHienTai?.buocTruocDo)" class="btn btn-primary ml-2">
+        Quay về bước trước
+    </button>
+    <button *ngIf="isAllowNext && this.data?.type === 2" (click)="openDialogChuyenBuocTiepTheo(work?.project?.id, work?.project?.name, work?.project?.buocHienTai?.buocTiepTheo)"  class="btn btn-primary ml-2">
+      Chuyển bước tiếp theo
+    </button>
+    <button *ngIf="this.data?.type === 2 && this.work?.isChuyenBuoc === 1" class="btn btn-primary ml-2" (click)="openDialogGiaoViecChoThanhVien(this.work?.project?.id, this.work?.project?.name)">Giao việc cho thành viên</button>
+  </div>
+  
+  
+  
+
+
+  
+  

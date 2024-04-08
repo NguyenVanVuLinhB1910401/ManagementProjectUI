@@ -49,8 +49,12 @@ export class LoginComponent implements OnInit {
             this.loginForm.reset();
             this.auth.storeAccessToken(res.accessToken);
             this.auth.storeRefreshToken(res.refreshToken);
-            const userPayload = this.auth.decodedToken();
+            this.auth.setUserLogin(res.accessToken);
+            //const userPayload = this.auth.decodedToken();
             //this.toast.success({detail: "SUCCESS", summary: res.message, duration: 5000});
+            
+            //console.log(this.auth?.userLogin);
+            
             this.router.navigate(['dashboard']);
           },
           error: (err) => {

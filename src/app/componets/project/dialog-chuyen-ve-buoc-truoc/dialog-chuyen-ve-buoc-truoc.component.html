@@ -1,0 +1,99 @@
+<div mat-dialog-title class="font-weight-bold text-center">
+    Thông tin chuyển bước tiếp theo
+  </div>
+  <div class="row p-0" mat-dialog-content>
+      <form class="mt-2" [formGroup]="createWorkForm" >
+        <div class="row">
+          <div class="col-12">
+            <mat-form-field class="example-full-width" appearance="outline" >
+                      <mat-label >Tên công việc</mat-label>
+                      <input formControlName="title" matInput>
+                      <mat-error class="error_Msg" *ngIf="createWorkForm.hasError('required', 'title')"
+                      class="text-danger">
+                          <span>Tên công việc là bắt buộc</span>
+                      </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-lg-6">
+              <mat-form-field class="example-full-width" appearance="outline" >
+                  <mat-label>Giao cho</mat-label>
+                  <mat-select formControlName="assignUserId">
+                      <mat-option *ngFor="let member of listInfoMemberByProject" [value]="member.memberId">{{member.fullName + " - " + member.position}}</mat-option>
+                  </mat-select>
+                  <mat-error class="error_Msg" *ngIf="createWorkForm.hasError('required', 'assignUserId')"
+                  class="text-danger">
+                      <span>Không được để trống</span>
+                  </mat-error>
+                </mat-form-field>
+          </div> -->
+        </div> 
+    
+        <div class="row ">
+          <div class="col-lg-6">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label >Ngày bắt đầu</mat-label>
+              <input formControlName="startDate" matInput [matDatepicker]="picker1" placeholder="Ngày bắt đầu" >
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 ></mat-datepicker>
+              <mat-error class="error_Msg" *ngIf="createWorkForm.hasError('required', 'startDate')"
+              class="text-danger">
+                  <span>Ngày bắt đầu là bắt buộc</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label >Ngày kết thúc</mat-label>
+              <input formControlName="endDate" matInput [matDatepicker]="picker2" placeholder="Ngày kết thúc" >
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 ></mat-datepicker>
+              <mat-error class="error_Msg" *ngIf="createWorkForm.hasError('required', 'endDate')"
+              class="text-danger">
+                  <span>Ngày kết thúc là bắt buộc</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="row">
+          <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label >Chi tiết nội dung thực hiện</mat-label>
+              <textarea formControlName="content" matInput rows="5"  placeholder="Ngày kết thúc" placeholder="Ex. Nhập mô tả chi tiết cho công việc"></textarea>
+              
+              <mat-error class="error_Msg" *ngIf="createWorkForm.hasError('required', 'content')"
+              class="text-danger">
+                  <span>Mô tả chi tiết là bắt buộc</span>
+              </mat-error>
+            </mat-form-field>
+        </div>
+  
+        <div class="d-sm-flex align-items-center justify-content-between mb-2">
+          <h1 class="mb-0">Đính kèm tập tin</h1>
+          <div class="d-flex align-items-center mb-0">
+             <button mat-raised-button class="btn btn-primary d-flex align-items-center justify-content-between" (click)="attachmentFiles.click()">	
+              <div>
+                <mat-icon> attach_file</mat-icon>
+              </div> 
+              <span>Chọn tập tin</span>
+            </button>
+              <input style="display: none;" class="form-control me-2" type="file" #attachmentFiles id="formFileMultiple" multiple (change)="selectFiles($event)">
+              <button (click)="deleteAllFileSelected()" class="btn btn-danger ml-2" *ngIf="selectedFiles.length > 0">Xóa tất cả</button>
+          </div>
+      </div>
+      <div class="row">
+          <div class="d-flex justify-content-between align-items-center" *ngFor="let file of selectedFiles; let i = index;">
+              <div><p>{{file.name}}{{" (" + formatBytes(file.size) + ") "}}</p></div><mat-icon (click)="deleteFileSelected(i)" class="text-danger">delete</mat-icon>
+          </div>
+      </div>
+      </form>
+    </div>
+    <div class="d-flex justify-content-end mx-1" mat-dialog-actions>
+      <button (click)="onClose()" class="btn btn-danger">Đóng</button>
+      <button (click)="onSubmit()" type="submit" class="btn btn-primary ml-2" [disabled]="!createWorkForm.valid">
+          Chuyển về bước trước
+      </button>
+    </div>
+    
+    
+    
+    
